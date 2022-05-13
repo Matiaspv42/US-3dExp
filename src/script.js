@@ -7,6 +7,8 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
+import { RGBShiftShader } from 'three/examples/jsm/shaders/RGBShiftShader.js'
 
 
 /**
@@ -116,13 +118,13 @@ scene.add( DirectionalLightHelper );
 
 // debug
 
-gui.add(pointLight1.position, 'x').min(-600).max(-400).step(0.1)
+gui.add(pointLight1.position, 'x').min(-100).max(100).step(0.1)
 gui.add(pointLight1.position, 'y').min(0).max(200).step(0.1)
-gui.add(pointLight1.position, 'z').min(-300).max(100).step(0.1)
+gui.add(pointLight1.position, 'z').min(-100).max(100).step(0.1)
 
-gui.add(pointLight2.position, 'x').min(-600).max(-400).step(0.1)
+gui.add(pointLight2.position, 'x').min(-100).max(100).step(0.1)
 gui.add(pointLight2.position, 'y').min(0).max(200).step(0.1)
-gui.add(pointLight2.position, 'z').min(-300).max(100).step(0.1)
+gui.add(pointLight2.position, 'z').min(-100).max(100).step(0.1)
 
 gui
     .addColor(parameters, 'pointLight1Color')
@@ -164,6 +166,7 @@ const renderPass = new RenderPass(scene, camera)
 effectComposer.addPass(renderPass)
 const unrealBloomPass = new UnrealBloomPass()
 effectComposer.addPass(unrealBloomPass)
+
 
 unrealBloomPass.strength = 0.3
 unrealBloomPass.radius = 1
