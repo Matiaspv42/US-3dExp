@@ -9,7 +9,7 @@ import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectio
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { RGBShiftShader } from 'three/examples/jsm/shaders/RGBShiftShader.js'
-
+import {SMAAPass} from 'three/examples/jsm/postprocessing/SMAAPass.js'
 
 /**
  * Debug
@@ -19,6 +19,7 @@ const parameters = {
     pointLight1Color: 0x5d8bee,
     intensityLight1: 3,
     decayLight1:100,
+    exposure:1,
 }
 
 /**
@@ -51,6 +52,10 @@ window.addEventListener('resize', () =>
     // Update renderer
     renderer.setSize(sizes.width, sizes.height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+    //Update effect composer 
+    effectComposer.setSize(sizes.width, sizes.height)
+    effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
 /**
@@ -158,24 +163,54 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 /**
  * Post processing
  */
- const effectComposer = new EffectComposer(renderer)
+
+// Render target
+
+const renderTarget = new THREE.WebGLRenderTarget(
+    800,
+    600,
+    {
+        samples: renderer.getPixelRatio() === 1? 2 : 0
+    }
+)
+
+ const effectComposer = new EffectComposer(renderer, renderTarget)
  effectComposer.setSize(sizes.width, sizes.height)
  effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-const renderPass = new RenderPass(scene, camera)
-effectComposer.addPass(renderPass)
+ const renderPass = new RenderPass(scene, camera)
+
+// UNREAL BLOOM
 const unrealBloomPass = new UnrealBloomPass()
-effectComposer.addPass(unrealBloomPass)
+
 
 
 unrealBloomPass.strength = 1.8
 unrealBloomPass.radius = 1.7
 unrealBloomPass.threshold = 0.1
 
+effectComposer.addPass(renderPass)
+effectComposer.addPass(unrealBloomPass)
+
 gui.add(unrealBloomPass, 'enabled')
 gui.add(unrealBloomPass, 'strength').min(0).max(5).step(0.001)
 gui.add(unrealBloomPass, 'radius').min(0).max(5).step(0.001)
 gui.add(unrealBloomPass, 'threshold').min(0).max(4).step(0.001)
+
+gui.add( parameters, 'exposure', 0.1, 2 ).onChange( function ( value ) {
+
+    renderer.toneMappingExposure = Math.pow( value, 4.0 );
+
+} );
+
+// SMAAPASS
+
+if(renderer.getPixelRatio() === 1 && !renderer.capabilities.isWebGL2){
+    const smaaPass = new SMAAPass()
+    effectComposer.addPass(smaaPass)
+
+    console.log('Using SMAA')
+}
 /**
  * Animate
  */
