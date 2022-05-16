@@ -168,14 +168,14 @@ const unrealBloomPass = new UnrealBloomPass()
 effectComposer.addPass(unrealBloomPass)
 
 
-unrealBloomPass.strength = 0.3
-unrealBloomPass.radius = 1
-unrealBloomPass.threshold = 0.6
+unrealBloomPass.strength = 1.8
+unrealBloomPass.radius = 1.7
+unrealBloomPass.threshold = 0.1
 
 gui.add(unrealBloomPass, 'enabled')
-gui.add(unrealBloomPass, 'strength').min(0).max(2).step(0.001)
-gui.add(unrealBloomPass, 'radius').min(0).max(2).step(0.001)
-gui.add(unrealBloomPass, 'threshold').min(0).max(1).step(0.001)
+gui.add(unrealBloomPass, 'strength').min(0).max(5).step(0.001)
+gui.add(unrealBloomPass, 'radius').min(0).max(5).step(0.001)
+gui.add(unrealBloomPass, 'threshold').min(0).max(4).step(0.001)
 /**
  * Animate
  */
