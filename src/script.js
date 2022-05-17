@@ -63,7 +63,7 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 10000)
-camera.position.x = -650
+camera.position.x = -100
 camera.position.y = 1
 camera.position.z = 1
 scene.add(camera)
@@ -98,12 +98,12 @@ controls.enableDamping = true
 // light
 
 const ambientLight = new THREE.AmbientLight( 0x404040, 3 ); // soft white light
-scene.add( ambientLight);
+// scene.add( ambientLight);
 
 console.log(ambientLight);
 
 const pointLight1 = new THREE.PointLight( parameters.pointLight1Color, 3, 100 );
-pointLight1.position.set( -451, 106, -224.7 );
+pointLight1.position.set( -23, 119, -5.7 );
 const pointLightHelper1 = new THREE.PointLightHelper( pointLight1, 1 );
 scene.add( pointLightHelper1 );
 scene.add( pointLight1 );
@@ -111,14 +111,14 @@ scene.add( pointLight1 );
 const pointLight2 = new THREE.PointLight( parameters.pointLight2Color, 3, 100 );
 pointLight2.position.set( -451, 106, -224.7 );
 const pointLightHelper2 = new THREE.PointLightHelper( pointLight2, 1 );
-scene.add( pointLightHelper2 );
-scene.add( pointLight2 );
+// scene.add( pointLightHelper2 );
+// scene.add( pointLight2 );
 
 // directional
 
 const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
 const DirectionalLightHelper = new THREE.DirectionalLightHelper( directionalLight, 5 );
-scene.add( DirectionalLightHelper );
+// scene.add( DirectionalLightHelper );
 
 
 // debug
