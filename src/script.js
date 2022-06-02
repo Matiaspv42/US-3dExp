@@ -80,7 +80,15 @@ controls.enableDamping = true
  gltfLoader.load(
     '/models/Background.glb',
     (gltf) =>
-    {   console.log(gltf.scene)
+    {   
+        for(let model of gltf.scene.children){
+        if(model.name === 'TVScreens'){
+            model.material.transparent = true
+            model.material.opacity = 0.8
+            console.log(model)
+        }
+    }
+        console.log(gltf.scene)
         scene.add(gltf.scene)
     },
     (progress) =>

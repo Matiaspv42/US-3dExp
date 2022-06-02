@@ -3,9 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Three.js - Template - Simple</title>
+     <!-- fonts -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+     <!-- fontAwesome -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     
+
+    <title>Underground Society</title>
 </head>
 <body>
+    <nav class="navbar">      
+        <div class="logo">
+            logo
+        </div>
+        <div class="menu">
+            <ul class="nav-list">
+                <li class="list-item">Roadmap</li>
+                <li class="list-item">Factions</li>
+                <li class="list-item">About</li>
+                <!-- <li class="list-item" style="color:#EDEDED;">
+                    Join us
+                </li> -->
+                <li class="list-item">
+                    <div class="discord">
+                        <i class="fa-brands fa-discord whiteFont"></i>
+                    </div>
+                </li>
+                <li class="list-item"> 
+                    <div class="twitter">
+                        <i class="fa-brands fa-twitter whiteFont"></i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <canvas class="webgl"></canvas>
     <video id="video" loop crossOrigin="anonymous" playsinline style="display:none" muted="muted">
         <source src="/static/videos/TVScreenAnimation_3.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
