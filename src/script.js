@@ -80,7 +80,7 @@ controls.enableDamping = true
  gltfLoader.load(
     '/models/Background.glb',
     (gltf) =>
-    {   
+    {   console.log(gltf.scene)
         scene.add(gltf.scene)
     },
     (progress) =>
@@ -100,7 +100,7 @@ controls.enableDamping = true
 const ambientLight = new THREE.AmbientLight( 0x404040, 3 ); // soft white light
 // scene.add( ambientLight);
 
-console.log(ambientLight);
+// console.log(ambientLight);
 
 const pointLight1 = new THREE.PointLight( parameters.pointLight1Color, 3, 100 );
 pointLight1.position.set( -23, 119, -5.7 );
@@ -140,15 +140,27 @@ gui
 
 
 /**
- * Cube
+ * Screens
  */
-// const cube = new THREE.Mesh(
-//     new THREE.BoxGeometry(1, 1, 1),
-//     new THREE.MeshBasicMaterial({ color: 0xff0000 })
-// )
-// scene.add(cube)
+
+const video = document.getElementById( 'video' );
+video.play();
+const videoTexture = new THREE.VideoTexture( video );
 
 
+const geometry = new THREE.PlaneGeometry(10,10,1,1);
+const material = new THREE.MeshBasicMaterial( {map:videoTexture} );
+const plane1 = new THREE.Mesh( geometry, material );
+scene.add( plane1 );
+
+plane1.position.x = -25.4;
+plane1.position.y = 86.2;
+plane1.position.z = -13.1;
+
+var planeFolder = gui.addFolder('Plane1')
+planeFolder.add(plane1.position,'x', -25.4).min(-100).max(100).step(0.1)
+planeFolder.add(plane1.position,'y', 86.2).min(-100).max(100).step(0.1)
+planeFolder.add(plane1.position,'z', -13.1).min(-100).max(100).step(0.1)
 
 /**
  * Renderer
