@@ -20,6 +20,14 @@ const parameters = {
     intensityLight1: 3,
     decayLight1:100,
     exposure:1,
+    pointLight2Color: 0x5d8bee,
+    intensityLight2: 3,
+    decayLight2:100,
+    exposure:1,
+    pointLight3Color: 0x5d8bee,
+    intensityLight3: 3,
+    decayLight3:100,
+    exposure:1,
 }
 
 /**
@@ -82,13 +90,13 @@ controls.enableDamping = true
     (gltf) =>
     {   
         for(let model of gltf.scene.children){
-        if(model.name === 'TVScreens'){
-            model.material.transparent = true
-            model.material.opacity = 0.8
-            console.log(model)
+            model.castShadow = true;
+            model.receiveShadow = true;
+            if(model.name === 'TVScreens'){
+                model.material.transparent = true
+                model.material.opacity = 0.7
+            }
         }
-    }
-        console.log(gltf.scene)
         scene.add(gltf.scene)
     },
     (progress) =>
@@ -105,8 +113,9 @@ controls.enableDamping = true
 
 // light
 
-const ambientLight = new THREE.AmbientLight( 0x404040, 3 ); // soft white light
-// scene.add( ambientLight);
+const ambientLight = new THREE.AmbientLight( 0x404040, 1 ); // soft white light
+
+// scene.add(ambientLight);
 
 // console.log(ambientLight);
 
@@ -117,33 +126,62 @@ scene.add( pointLightHelper1 );
 scene.add( pointLight1 );
 
 const pointLight2 = new THREE.PointLight( parameters.pointLight2Color, 3, 100 );
-pointLight2.position.set( -451, 106, -224.7 );
+pointLight2.position.set( 38.5, 145.9, 21.3 );
 const pointLightHelper2 = new THREE.PointLightHelper( pointLight2, 1 );
-// scene.add( pointLightHelper2 );
-// scene.add( pointLight2 );
+scene.add( pointLightHelper2 );
+scene.add( pointLight2 );
+
+const pointLight3 = new THREE.PointLight( parameters.pointLight3Color, 3, 100 );
+pointLight3.position.set( -100, 141, -67 );
+const pointLightHelper3 = new THREE.PointLightHelper( pointLight3, 1 );
+scene.add( pointLightHelper3 );
+scene.add( pointLight3 );
 
 // directional
 
-const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
-const DirectionalLightHelper = new THREE.DirectionalLightHelper( directionalLight, 5 );
+// const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+// const DirectionalLightHelper = new THREE.DirectionalLightHelper( directionalLight, 5 );
 // scene.add( DirectionalLightHelper );
 
 
 // debug
+var lightTvs = gui.addFolder('LightTvStore')
+lightTvs.add(pointLight1.position, 'x').min(-100).max(100).step(0.1)
+lightTvs.add(pointLight1.position, 'y').min(0).max(200).step(0.1)
+lightTvs.add(pointLight1.position, 'z').min(-100).max(100).step(0.1)
 
-gui.add(pointLight1.position, 'x').min(-100).max(100).step(0.1)
-gui.add(pointLight1.position, 'y').min(0).max(200).step(0.1)
-gui.add(pointLight1.position, 'z').min(-100).max(100).step(0.1)
 
-gui.add(pointLight2.position, 'x').min(-100).max(100).step(0.1)
-gui.add(pointLight2.position, 'y').min(0).max(200).step(0.1)
-gui.add(pointLight2.position, 'z').min(-100).max(100).step(0.1)
-
-gui
+lightTvs
     .addColor(parameters, 'pointLight1Color')
     .onChange(() =>
     {
         pointLight1.color.set(parameters.pointLight1Color)
+    })
+
+var lightSecondStore = gui.addFolder('Light Second Store')
+lightSecondStore.add(pointLight2.position, 'x').min(-100).max(100).step(0.1)
+lightSecondStore.add(pointLight2.position, 'y').min(0).max(200).step(0.1)
+lightSecondStore.add(pointLight2.position, 'z').min(-100).max(100).step(0.1)
+
+lightSecondStore
+    .addColor(parameters, 'pointLight2Color')
+    .onChange(() =>
+    {
+        pointLight2.color.set(parameters.pointLight2Color)
+    })
+
+
+
+var lightAlley = gui.addFolder('Light Alley')
+lightAlley.add(pointLight3.position, 'x').min(-100).max(100).step(0.1)
+lightAlley.add(pointLight3.position, 'y').min(0).max(200).step(0.1)
+lightAlley.add(pointLight3.position, 'z').min(-100).max(100).step(0.1)
+
+lightAlley
+    .addColor(parameters, 'pointLight3Color')
+    .onChange(() =>
+    {
+        pointLight3.color.set(parameters.pointLight3Color)
     })
 
 
@@ -156,19 +194,21 @@ video.play();
 const videoTexture = new THREE.VideoTexture( video );
 
 
-const geometry = new THREE.PlaneGeometry(10,10,1,1);
+const geometry = new THREE.PlaneGeometry(23,17,1,1);
 const material = new THREE.MeshBasicMaterial( {map:videoTexture} );
 const plane1 = new THREE.Mesh( geometry, material );
 scene.add( plane1 );
 
-plane1.position.x = -25.4;
-plane1.position.y = 86.2;
-plane1.position.z = -13.1;
+plane1.position.x = -20.53;
+plane1.position.y = 84.51;
+plane1.position.z = -17.7;
 
 var planeFolder = gui.addFolder('Plane1')
-planeFolder.add(plane1.position,'x', -25.4).min(-100).max(100).step(0.1)
-planeFolder.add(plane1.position,'y', 86.2).min(-100).max(100).step(0.1)
-planeFolder.add(plane1.position,'z', -13.1).min(-100).max(100).step(0.1)
+planeFolder.add(plane1.position,'x', -25.4).min(-30).max(-15).step(0.01)
+planeFolder.add(plane1.position,'y', 86.2).min(75).max(85).step(0.01)
+planeFolder.add(plane1.position,'z', -13.1).min(-25).max(-15).step(0.01)
+
+
 
 /**
  * Renderer
@@ -208,6 +248,7 @@ const unrealBloomPass = new UnrealBloomPass()
 unrealBloomPass.strength = 1.8
 unrealBloomPass.radius = 1.7
 unrealBloomPass.threshold = 0.1
+unrealBloomPass.enabled = false
 
 effectComposer.addPass(renderPass)
 effectComposer.addPass(unrealBloomPass)
@@ -218,9 +259,7 @@ gui.add(unrealBloomPass, 'radius').min(0).max(5).step(0.001)
 gui.add(unrealBloomPass, 'threshold').min(0).max(4).step(0.001)
 
 gui.add( parameters, 'exposure', 0.1, 2 ).onChange( function ( value ) {
-
     renderer.toneMappingExposure = Math.pow( value, 4.0 );
-
 } );
 
 // SMAAPASS

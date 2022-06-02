@@ -17,7 +17,7 @@ body
 .navbar{
     color: #EDEDED;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     font-size: 20px;
     margin: 5px 20px;
