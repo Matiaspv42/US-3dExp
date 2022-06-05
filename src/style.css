@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     border:0;
-    /* border: red 2px solid; */
+    border: white 2px solid;
 }
 
 html,
@@ -15,7 +15,35 @@ body
   
 }
 
-.frontPage{
+.sections{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.sections > div{
+    position: absolute;
+}
+
+.section1{
+    width: 100vw;
+    height: 100vh;
+}
+
+.section2 {
+    width: 100vw;
+    height: 100vh;
+}
+.section3{
+    width: 100vw;
+    height: 100vh;
+}
+.section4{
+    width: 100vw;
+    height: 100vh;
+}
+.section5{
+    width: 100vw;
     height: 100vh;
 }
 

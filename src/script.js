@@ -1,5 +1,6 @@
 import './style.css'
 import * as THREE from 'three'
+
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import * as dat from 'lil-gui'
@@ -10,6 +11,9 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { RGBShiftShader } from 'three/examples/jsm/shaders/RGBShiftShader.js'
 import {SMAAPass} from 'three/examples/jsm/postprocessing/SMAAPass.js'
+
+import Wheel from './Wheel'
+
 
 /**
  * Debug
@@ -276,6 +280,37 @@ if(renderer.getPixelRatio() === 1 && !renderer.capabilities.isWebGL2){
 const clock = new THREE.Clock()
 let lastElapsedTime = 0
 
+// wheel event
+
+let direction = null
+let section = 0
+window.addEventListener('wheel',(e)=>{
+    // let's test direction
+    // const normalized = normalizeWheel(e)
+    // if(normalized){
+    //     normalized.spinY > 0 ? direction = "down": direction = "up";
+    //     if(direction === "down"){
+    //         section+=1;
+    //     }else if(direction === "up") {
+    //         section-=1;
+    //     }
+    // }
+
+    const wheel = new Wheel()
+    wheel.on('wheel', (_direction) =>
+        {
+            console.log(_direction)
+            if(_direction === 1){
+                console.log('siguiente seccion')
+            }
+            else if(_direction === - 1){
+                console.log('previa seccion')
+            }
+        })
+    
+})  
+
+
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
@@ -291,6 +326,8 @@ const tick = () =>
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
+
+    
 }
 
 tick()
