@@ -283,28 +283,37 @@ let lastElapsedTime = 0
 // wheel event
 
 let direction = null
-let section = 0
+let prevSectionNumber = 1
+let sectionNumber = 0
 window.addEventListener('wheel',(e)=>{
-    // let's test direction
-    // const normalized = normalizeWheel(e)
-    // if(normalized){
-    //     normalized.spinY > 0 ? direction = "down": direction = "up";
-    //     if(direction === "down"){
-    //         section+=1;
-    //     }else if(direction === "up") {
-    //         section-=1;
-    //     }
-    // }
-
     const wheel = new Wheel()
     wheel.on('wheel', (_direction) =>
         {
-            console.log(_direction)
             if(_direction === 1){
-                console.log('siguiente seccion')
+                // we move forward through the sections up to section 5
+                if(sectionNumber<5){
+                    sectionNumber+=1;
+                    const section = document.getElementById(`section${sectionNumber}`)
+                    section.classList.add('visible')
+                    if(sectionNumber != prevSectionNumber){
+                        const prevSection = document.getElementById(`section${prevSectionNumber}`);
+                        prevSection.classList.remove('visible');
+                        prevSectionNumber+=1;
+                    }
+                }
             }
             else if(_direction === - 1){
-                console.log('previa seccion')
+                // we move backwards through the sections up to section 1
+                if(sectionNumber>0){ 
+                    sectionNumber-=1
+                    const section = document.getElementById(`section${sectionNumber}`)
+                    section.classList.add('visible')
+                    if(sectionNumber != prevSectionNumber){
+                        const prevSection = document.getElementById(`section${prevSectionNumber}`);
+                        prevSection.classList.remove('visible');
+                        prevSectionNumber-=1;
+                    }
+                }        
             }
         })
     

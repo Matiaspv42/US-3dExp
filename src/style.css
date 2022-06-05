@@ -111,6 +111,14 @@ h1{
     font-size: 48px;
 }
 
+.invisible{
+    opacity: 0;
+}
+
+.visible{
+    opacity: 1;
+}
+
 .webgl
 {
     position: fixed;
