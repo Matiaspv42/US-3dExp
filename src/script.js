@@ -284,7 +284,8 @@ let lastElapsedTime = 0
 
 let direction = null
 let prevSectionNumber = 1
-let sectionNumber = 0
+let sectionNumber = 1
+let section = null
 window.addEventListener('wheel',(e)=>{
     const wheel = new Wheel()
     wheel.on('wheel', (_direction) =>
@@ -293,30 +294,24 @@ window.addEventListener('wheel',(e)=>{
                 // we move forward through the sections up to section 5
                 if(sectionNumber<5){
                     sectionNumber+=1;
-                    const section = document.getElementById(`section${sectionNumber}`)
-                    section.classList.add('visible')
-                    if(sectionNumber != prevSectionNumber){
-                        const prevSection = document.getElementById(`section${prevSectionNumber}`);
-                        prevSection.classList.remove('visible');
-                        prevSectionNumber+=1;
-                    }
+                    const prevSection = document.getElementById(`section${prevSectionNumber}`);
+                    prevSection.classList.remove('visible');
+                    prevSectionNumber+=1;
                 }
             }
             else if(_direction === - 1){
                 // we move backwards through the sections up to section 1
-                if(sectionNumber>0){ 
+                if(sectionNumber>1){ 
                     sectionNumber-=1
-                    const section = document.getElementById(`section${sectionNumber}`)
-                    section.classList.add('visible')
-                    if(sectionNumber != prevSectionNumber){
-                        const prevSection = document.getElementById(`section${prevSectionNumber}`);
-                        prevSection.classList.remove('visible');
-                        prevSectionNumber-=1;
-                    }
+                    const prevSection = document.getElementById(`section${prevSectionNumber}`);
+                    prevSection.classList.remove('visible');
+                    prevSectionNumber-=1;
                 }        
             }
+            
         })
-    
+    section = document.getElementById(`section${sectionNumber}`)
+    section.classList.add('visible')
 })  
 
 
