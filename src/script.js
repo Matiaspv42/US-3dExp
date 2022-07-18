@@ -1,7 +1,10 @@
 import './style.css'
 import * as THREE from 'three'
 
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+// fly controls are better in order to control de camera
+import { FlyControls } from 'three/examples/jsm/controls/FlyControls'
+
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import * as dat from 'lil-gui'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
@@ -75,14 +78,14 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 10000)
-camera.position.x = -100
-camera.position.y = 1
-camera.position.z = 1
+camera.position.x = -20.7
+camera.position.y = 75.7
+camera.position.z = 18.4
 scene.add(camera)
+camera.lookAt(-19,82.1,-81.3)
 
-// Controls
-const controls = new OrbitControls(camera, canvas)
-controls.enableDamping = true
+
+
 
 /**
  * Models
@@ -224,6 +227,23 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
+
+// Controls
+// const controls = new OrbitControls(camera, canvas)
+// controls.enableDamping = true
+
+const controls = new FlyControls( camera, renderer.domElement );
+controls.movementSpeed = 100;
+controls.rollSpeed = Math.PI / 24;
+controls.autoForward = false;
+controls.dragToLook = true;
+
+let cameraDirection = new THREE.Vector3()
+let camPositionSpan, camLookAtSpan
+
+camPositionSpan = document.querySelector("#position");
+camLookAtSpan = document.querySelector("#lookingAt");
+
 /**
  * Post processing
  */
@@ -322,7 +342,19 @@ const tick = () =>
     lastElapsedTime = elapsedTime
 
     // Update controls
-    controls.update()
+    controls.update(0.01)
+
+    // calculate and display the vector values on screen
+    // this copies the camera's unit vector direction to cameraDirection
+    camera.getWorldDirection(cameraDirection)
+    // scale the unit vector up to get a more intuitive value
+    cameraDirection.set(cameraDirection.x * 100, cameraDirection.y * 100, cameraDirection.z * 100)
+
+    
+    // update the onscreen spans with the camera's position and lookAt vectors
+    // camPositionSpan.innerHTML = `Position: (${camera.position.x.toFixed(1)}, ${camera.position.y.toFixed(1)}, ${camera.position.z.toFixed(1)})`
+    // camLookAtSpan.innerHTML = `LookAt: (${(camera.position.x + cameraDirection.x).toFixed(1)}, ${(camera.position.y + cameraDirection.y).toFixed(1)}, ${(camera.position.z + cameraDirection.z).toFixed(1)})`
+
 
     // Render
     // renderer.render(scene, camera)

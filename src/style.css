@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     border:0;
-    border: white 2px solid;
+    /* border: white 2px solid; */
 }
 
 html,
@@ -30,21 +30,71 @@ body
     height: 100vh;
 }
 
+.section1 > .content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding-left: 25px;
+    /* border: 1px white solid; */
+}
+
 .section2 {
     width: 100vw;
     height: 100vh;
 }
+
+.section2 > .content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100%;
+    padding-right: 25px;
+    /* border: 1px white solid; */
+}
+
 .section3{
     width: 100vw;
     height: 100vh;
+}
+
+.section3 > .content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    padding-left: 25px;
+    /* border: 1px white solid; */
 }
 .section4{
     width: 100vw;
     height: 100vh;
 }
+
+.section4 > .content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100%;
+    padding-right: 25px;
+    /* border: 1px white solid; */
+}
 .section5{
     width: 100vw;
     height: 100vh;
+}
+
+.section5 > .content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    padding-left: 25px;
+    /* border: 1px white solid; */
 }
 
 .navbar{
@@ -125,5 +175,15 @@ h1{
     top: 0;
     left: 0;
     outline: none;
+    /* webgl behind */
     z-index: -1;
 }
+
+#camera-vectors {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: grey;
+    padding: 8px;
+    color: white;
+  }
