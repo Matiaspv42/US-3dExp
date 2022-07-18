@@ -17,8 +17,9 @@ body
 
 .sections{
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
     position: relative;
+    /* border: 1px white solid; */
 }
 
 .sections > div{
@@ -95,6 +96,10 @@ body
     height: 100%;
     padding-left: 25px;
     /* border: 1px white solid; */
+}
+
+.innerWrap{
+    margin-bottom: 300px;
 }
 
 .navbar{
